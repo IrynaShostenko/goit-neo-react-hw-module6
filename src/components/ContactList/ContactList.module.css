@@ -1,0 +1,11 @@
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.empty {
+  color: #666;
+}

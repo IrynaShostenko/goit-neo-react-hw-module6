@@ -1,0 +1,11 @@
+.wrapper {
+  margin: 16px 0;
+}
+
+.input {
+  width: 100%;
+  max-width: 360px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}

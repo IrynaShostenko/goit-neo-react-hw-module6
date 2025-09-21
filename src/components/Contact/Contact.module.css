@@ -1,0 +1,26 @@
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.number {
+  color: #333;
+}
+
+.delete {
+  border: none;
+  background: #ef4444;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
