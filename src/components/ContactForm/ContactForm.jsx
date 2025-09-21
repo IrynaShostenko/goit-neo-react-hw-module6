@@ -9,55 +9,30 @@ const ContactForm = () => {
   const [number, setNumber] = useState("");
   const [error, setError] = useState("");
 
-  const normalizePhone = (value) => {
-    let phone = value.trim();
-
-    // якщо починається з "0" → додаємо +38
-    if (/^0\d{9}$/.test(phone)) {
-      phone = "+38" + phone;
-    }
-
-    // якщо вже є код країни, залишаємо
-    if (!phone.startsWith("+")) {
-      phone = "+38" + phone;
-    }
-
-    return phone;
-  };
-
-  const validate = (nameValue, numberValue) => {
-    if (!nameValue.trim()) {
+  const validate = () => {
+    if (!name.trim()) {
       return "Name is required";
     }
-    if (nameValue.trim().length < 2) {
-      return "Name must be at least 2 letters";
+    if (!/^[a-zA-Zа-яА-ЯіїєІЇЄ\s]+$/.test(name.trim())) {
+      return "Name can only contain letters";
     }
-    if (!/^[a-zA-Zа-яА-ЯіїєІЇЄ\s]+$/.test(nameValue.trim())) {
-      return "Name can only contain letters and spaces";
-    }
-
-    if (!numberValue.trim()) {
+    if (!number.trim()) {
       return "Number is required";
     }
-    if (!/^\+38\d{10}$/.test(numberValue)) {
-      return "Phone must be in format +38 067 0000000";
+    if (!/^\+?\d{6,15}$/.test(number.trim())) {
+      return "Invalid phone number format";
     }
-
     return "";
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    const normalizedNumber = normalizePhone(number);
-    const validationError = validate(name, normalizedNumber);
-
+    const validationError = validate();
     if (validationError) {
       setError(validationError);
       return;
     }
-
-    dispatch(addContact({ name, number: normalizedNumber }));
+    dispatch(addContact({ name, number }));
     setName("");
     setNumber("");
     setError("");
@@ -72,10 +47,9 @@ const ContactForm = () => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Mary Poppins"
+          placeholder="Melissa Smith"
         />
       </label>
-
       <label className={styles.label}>
         Number
         <input
@@ -83,7 +57,7 @@ const ContactForm = () => {
           type="tel"
           value={number}
           onChange={(e) => setNumber(e.target.value)}
-          placeholder="(+38) 067 0000000"
+          placeholder="067 0000000"
         />
       </label>
 
